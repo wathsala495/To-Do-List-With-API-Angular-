@@ -1,0 +1,66 @@
+
+<table border="1" class="w-100">
+    <tr>
+        <th class="border-bottom border-black py-3">
+            Index
+           
+        </th>
+        
+        <th class="border-bottom border-black">Task Name  </th>
+        <th class="border-bottom border-black">Task Description  </th>
+        <th class="border-bottom border-black">Due Date  </th>
+        <th class="border-bottom border-black">Tags</th>
+    </tr>
+    
+    <!-- <tr  *ngFor="let task of taskList">
+        <td class="py-2">{{task.itemId}}</td>
+        <td>{{task.taskName}}</td>
+        <td>{{task.taskDescription}}</td>
+        <td>{{task.dueDate |date:'yyyy-MM-dd'}}</td>
+        <td>
+            <button class="border-0 bg-primary rounded me-1">Edit</button>
+            <button class="border-0 bg-danger rounded">Delete</button>
+        </td>
+    </tr> -->
+    @for( task of taskList; track 'itemId'){
+        <tr>
+            <td class="py-2">{{task.itemId}}</td>
+            <td>{{task.taskName}}</td>
+            <td>{{task.taskDescription}}</td>
+            <td>{{task.dueDate |date:'yyyy-MM-dd'}}</td>
+            <td>
+                <button class="border-0 bg-primary rounded me-1" (click)="onEdit(task)">Edit</button>
+                <button class="border-0 bg-danger rounded" (click)="onDelete(task.itemId)">Delete</button>
+            </td>   
+        </tr>
+    }
+</table>
+
+
+
+
+<!-- Conditionally rendered modal content -->
+<div *ngIf="isOpen" class="modal fade show d-block ">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal Title</h5>
+        <!-- <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button> -->
+      </div>
+      <div class="modal-body">
+        <!-- Your modal content goes here -->
+      <input type="text" [(ngModel)]="taskObj.taskName">
+      <br>
+      <input type="text"  [(ngModel)]="taskObj.taskDescription">
+      <br>
+      <input type="date"   [(ngModel)]="taskObj.dueDate" name="dueDate">
+      </div>
+      <div class="modal-footer">
+        <button (click)="onUpdate()">Update</button>
+        <button (click)="onClose()">Close</button>
+        <!-- <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
